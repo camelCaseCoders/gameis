@@ -7,27 +7,30 @@ body {
 	background-color: lightskyblue;
 }
 #container {
-	float: left;
+	padding: 30px;
 }
 #icon {
-	float: left;
 	background-color: antiquewhite;
-	width: 200px;
 	height: 100px;
-	margin-left: 30px;
-	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+	padding: 20px;
+	text-align: center;
 }
 #game-container {
-	float: left;
 	background-color: dimgray;
-	width: 500px;
+	width: 700px;
 	height: 500px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 50px;
 }
 
-/**/
+/*Text type CSS*/
+h2 {
+	font-size: 50px;
+
+}
 /**/
 /**/
 /**/
