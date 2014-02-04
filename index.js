@@ -1,7 +1,7 @@
 var express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
-	db = require("mongojs").connect(databaseUrl, collections);
+	db = require("mongojs").connect('', ["users", "reports"]);
 
 app.use(express.static(__dirname + '/client'))
 .use(express.json());
