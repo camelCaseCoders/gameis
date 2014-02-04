@@ -7,16 +7,21 @@ body {
 	background-color: lightskyblue;
 }
 #container {
-	padding: 30px;
+	background-color: gray;
 }
-#icon {
-	background-color: antiquewhite;
-	height: 100px;
+header {
+	background-color: darkcyan;
+	height: 200px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 30px;
 	padding: 20px;
-	text-align: center;
+}
+nav {
+	background-color: black;
+	width: 100%;
+	padding-left: 40px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 #game-container {
 	background-color: dimgray;
@@ -24,12 +29,33 @@ body {
 	height: 500px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 20px;
+}
+footer {
+	background-color: black;
+	height: 100px;
+	margin-top: 30px;
+	text-align: center;
 }
 
 /*Text type CSS*/
 h2 {
 	font-size: 50px;
+	color: black;
+	margin-top: 20px;
 
+}
+p {
+	font-size: 30px;
+	color: cyan;
+}
+a {
+	font-size: 30px;
+	font-weight: bold;
+	color: cyan;
+}
+a + a {
+	margin-left: 30px;
 }
 /**/
 /**/
