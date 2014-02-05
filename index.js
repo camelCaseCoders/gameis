@@ -21,7 +21,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
 	var scoreSchema = new Schema({
 		name: {type: String, default: 'Anonymous'},
-		score: {type: Number}
+		score: {type: Number, default: 0}
 	});
 	Score = mongoose.model('Score', scoreSchema);
 });
