@@ -4,7 +4,7 @@
 	padding: 0px;
 }
 body {
-	background-color: lightskyblue;
+	
 }
 #container {
 	background-color: gray;
@@ -12,24 +12,26 @@ body {
 header {
 	background-color: darkcyan;
 	height: 200px;
-	margin-left: auto;
-	margin-right: auto;
 	padding: 20px;
 }
 nav {
 	background-color: black;
-	width: 100%;
 	padding-left: 40px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
 #game-container {
-	background-color: gray;
-	width: 700px;
-	height: 500px;
+	background-color: white;
+	width: 720px;
+	height: 520px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
+}
+#game-canvas {
+	width: 700px;
+	height: 500px;
+	border: 10px solid black;
 }
 footer {
 	background-color: black;
@@ -48,7 +50,7 @@ h2 {
 }
 p {
 	font-size: 30px;
-	font-weight: bold;
+	font-weight: bolder;
 	color: cyan;
 }
 a {
