@@ -10,8 +10,8 @@ angular.module('app', ['ngRoute'])
 	.when('kasta', {
 		templateUrl: 'templates/kasta.html'
 	})
-	.when('slopa', {
-		templateUrl: 'templates/slopa.html'
+	.when('highscores', {
+		templateUrl: 'templates/highscores.html'
 	})
 	.when('about', {
 		templateUrl: 'templates/about.html'
