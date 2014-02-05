@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title></title>
+	<script type="text/javascript" src="lib/angular.js"></script>
+	<script type="text/javascript" src="test.js"></script>
+</head>
+<body ng-controller="ctrl">
+	<ul>
+		<li ng-repeat="score in scores">{{score.name}} {{score.score}}</li>
+	</ul>
+	<div>
+		<button ng-click="getScores()">Get Scores</button>
+		<button ng-click="getHighScores()">Get High Scores</button>
+	</div>
+	<div>
+		<input placeholder="Name" ng-model="name">
+		<input placeholder="Score" type="number" ng-model="score">
+		<button ng-click="postScore()">Post Score</button>
+	</div>
+</body>
+</html>

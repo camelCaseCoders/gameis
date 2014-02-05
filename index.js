@@ -27,15 +27,26 @@ db.once('open', function callback () {
 });
 
 app.get('/highscores', function (req, res, next) {
-	Score.find(function (err, scores) {
-	  	if (err) console.log(err);
-	  	res.json(scores);
-	})
+	Score.find().sort({score: -1}).limit(10).exec(
+		function(err, scores) {
+			if (err) console.log(err);
+	  		res.json(scores);
+	    }
+	);
 });
 
-app.get('/newscore', function (req, res, next) {
-	Score.create({name: 'John', score: Math.floor(Math.random * 100)}, function(err, score) {
+app.get('/scores', function (req, res, next) {
+	Score.find(function(err, scores) {
+		if (err) console.log(err);
+  		res.json(scores);
+	});
+});
+
+app.post('/newscore', function (req, res, next) {
+	Score.create(req.body, function(err, score) {
 		if (err) return console.log(err);
 		console.log(score);
+		res.json(true);
 	});
+	res.json(true);
 });
