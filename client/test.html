@@ -6,14 +6,14 @@
 	<script type="text/javascript" src="test.js"></script>
 </head>
 <body ng-controller="ctrl">
-	<ul>
-		<h1>Scores</h1>
-		<li ng-repeat="score in scores">{{score.name}} {{score.score}}</li>
-	</ul>
 	<div>
 		<button ng-click="getScores()">Get Scores</button>
 		<button ng-click="getHighScores()">Get High Scores</button>
 	</div>
+	<ul>
+		<h1>Scores</h1>
+		<li ng-repeat="score in scores">{{score.name}} {{score.score}}</li>
+	</ul>
 	<div>
 		<h1>Add score</h1>
 		<input placeholder="Name" ng-model="addName">
