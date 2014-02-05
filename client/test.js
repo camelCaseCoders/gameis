@@ -7,6 +7,7 @@ angular.module('app', [])
 			$scope.scores = data;
 		})
 	}
+	$scope.getScores();
 	$scope.getHighScores = function() {
 		$http.get('/highscores')
 		.success(function(data, status, headers, config) {
@@ -14,7 +15,11 @@ angular.module('app', [])
 		});
 	}
 	$scope.postScore = function() {
-		data = {name: $scope.name, score: $scope.score}
+		data = {name: $scope.addName, score: $scope.addScore};
 		$http.post('/newscore', data);
+	}
+	$scope.removeScore = function() {
+		data = {name: $scope.removeName};
+		$http.post('/removescore', data);
 	}
 });

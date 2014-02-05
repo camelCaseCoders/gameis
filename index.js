@@ -48,5 +48,11 @@ app.post('/newscore', function (req, res, next) {
 		console.log(score);
 		res.json(true);
 	});
-	res.json(true);
+});
+
+app.post('/removescore', function (req, res, next) {
+	Score.remove(req.body, function(err, score) {
+		if (err) return console.log(err);
+		res.json(true);
+	});
 });

@@ -7,6 +7,7 @@
 </head>
 <body ng-controller="ctrl">
 	<ul>
+		<h1>Scores</h1>
 		<li ng-repeat="score in scores">{{score.name}} {{score.score}}</li>
 	</ul>
 	<div>
@@ -14,9 +15,15 @@
 		<button ng-click="getHighScores()">Get High Scores</button>
 	</div>
 	<div>
-		<input placeholder="Name" ng-model="name">
-		<input placeholder="Score" type="number" ng-model="score">
+		<h1>Add score</h1>
+		<input placeholder="Name" ng-model="addName">
+		<input placeholder="Score" type="number" ng-model="addScore">
 		<button ng-click="postScore()">Post Score</button>
+	</div>
+	<div>
+		<h1>Remove score</h1>
+		<input placeholder="Name" ng-model="removeName">
+		<button ng-click="removeScore()">Remove Score</button>
 	</div>
 </body>
 </html>
