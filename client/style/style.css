@@ -29,8 +29,6 @@ nav {
 	margin-top: 20px;
 }
 #game-canvas {
-	width: 700px;
-	height: 500px;
 	border: 10px solid black;
 }
 footer {
