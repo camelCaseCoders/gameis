@@ -3,7 +3,7 @@ var express = require('express'),
 	server = require('http').createServer(app),
 	mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/highscores');
+mongoose.connect('mongodb://192.168.1.9/highscores');
 
 app.use(express.static(__dirname + '/client'))
 .use(express.json());
