@@ -39,7 +39,10 @@ $(document).ready(function() {
 			--player.x;
 		if(Input.keydown(Input.keys['right-arrow']))
 			++player.x;
-		
+		if(Input.keydown(Input.keys['up-arrow']))
+			++player.y;
+		if(Input.keydown(Input.keys['down-arrow']))
+			--player.y;
 		//REDRAW
 		ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
 	}
