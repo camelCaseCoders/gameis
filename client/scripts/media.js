@@ -1,4 +1,4 @@
-var Media = function() {
+/*var Media = function() {
 	var listeners = [],
 		loaders = [];
 
@@ -14,9 +14,9 @@ var Media = function() {
 
 		}
 	};
-}();
+}();*/
 
-var NewMedia = function() {
+var Media = function() {
 	var cache = {},
 		dir = 'res/';
 
@@ -29,10 +29,13 @@ var NewMedia = function() {
 	};
 
 	var respond = function(request) {
-		var loaded = {}, onready;
+		var loaded = {},
+		onready, ready = false;
+		
 		var check = function() {
 			if(Object.keys(loaded).length == Object.keys(request).length) {
-				onready(loaded);
+				ready = true;
+				if(onready) onready(loaded);
 			}
 		}
 
@@ -57,8 +60,9 @@ var NewMedia = function() {
 
 		return {
 			ready: function(callback) {
-				onready = callback;
-			}	
+				if(ready) callback(loaded);
+				else onready = callback;
+			}
 		}
 	}
 
@@ -73,12 +77,13 @@ var NewMedia = function() {
 			return {
 				src: src,
 				done: function(callback) {
+					var self = this;
 					if(image.complete) {
 						alert('image.complete in media.js');
-						callback(this);
+						callback(self);
 					} else {
 						image.onload = function() {
-							callback(this);
+							callback(self);
 						};
 					}		
 				},
