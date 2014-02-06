@@ -32,7 +32,7 @@ $(document).ready(function() {
 	}
 	function game() {
 		//CLEAR
-		ctx.clearRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		//DO SHIT
 		if(Input.keydown(Input.keys['left-arrow']))
@@ -44,7 +44,7 @@ $(document).ready(function() {
 		if(Input.keydown(Input.keys['down-arrow']))
 			--player.y;
 		//REDRAW
-		ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
+		ctx.fillRect(player.x - player.width / 2, canvas.height - (player.y - player.height / 2), player.width, player.height);
 	}
 
 	var interval = setInterval(game, 1000 / 60);
@@ -53,6 +53,7 @@ $(document).ready(function() {
 var Input = function() {
 	var keys = {};
 	$(window).keydown(function(e) {
+		e.preventDefault();
 		keys[e.keyCode] = true;
 	}).keyup(function(e) {
 		keys[e.keyCode] = false;
