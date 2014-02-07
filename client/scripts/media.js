@@ -79,6 +79,23 @@
 					return image;
 				}
 			}
+		},
+		audio: function(src) {
+			var audio = new Audio();
+			audio.src = dir + src;
+			return {
+				src: src,
+				type: 'audio',
+				done: function(callback) {
+					var self = this;
+					audio.oncanplaythrough = function() {
+						callback(self);
+					}		
+				},
+				get: function() {
+					return audio;
+				}
+			}
 		}
 	};
 	window.Media = Media;

@@ -22,7 +22,9 @@ angular.module('app', ['ngRoute'])
 });
 var request = Media.request({
 	character: Media.loaders.image('character.png'),
-	smallCharacter: Media.loaders.image('favicon.ico')
+	smallCharacter: Media.loaders.image('favicon.ico'),
+	halloween: Media.loaders.audio('halloween.mp3'),
+	shell: Media.loaders.audio('shell.mp3')
 });
 $(document).ready(function() {
 	var canvas = document.getElementById('game-canvas'),
@@ -52,33 +54,11 @@ $(document).ready(function() {
 			//ctx.fillRect(player.x - player.width / 2, canvas.height - (player.y - player.height / 2), player.width, player.height);
 			ctx.drawImage(media.character, player.x - player.width / 2,
 				canvas.height - (player.y - player.height / 2), player.width, player.height);
+			if(Math.random() > 0.9)
+				media.shell.play();
 		}
 
 		var interval = setInterval(game, 1000 / 60);
 	});
 	
 });
-
-var Input = function() {
-	var keys = {};
-	$(window).keydown(function(e) {
-		//temporary solution
-		if(e.keyCode == 38 || e.keyCode == 40)
-			e.preventDefault();
-		keys[e.keyCode] = true;
-	}).keyup(function(e) {
-		keys[e.keyCode] = false;
-	});
-	return {
-		keys: {
-			'left-arrow': 37,
-			'up-arrow': 38,
-			'right-arrow': 39,
-			'down-arrow': 40,
-		},
-		keydown: function(key) {
-			return keys[key];
-		}
-	}
-}();
-
