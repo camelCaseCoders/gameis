@@ -20,7 +20,10 @@ angular.module('app', ['ngRoute'])
 		redirectTo: '/'
 	});
 });
-var request = Media.request({character: 'character.png'});
+var request = Media.request({
+	character: Media.loaders.image('character.png'),
+	smallCharacter: Media.loaders.image('favicon.ico')
+});
 $(document).ready(function() {
 	var canvas = document.getElementById('game-canvas'),
 		ctx = canvas.getContext('2d');
@@ -47,7 +50,8 @@ $(document).ready(function() {
 				--player.y;
 			//REDRAW
 			//ctx.fillRect(player.x - player.width / 2, canvas.height - (player.y - player.height / 2), player.width, player.height);
-			ctx.drawImage(media.character, player.x - player.width / 2, canvas.height - (player.y - player.height / 2), player.width, player.height);
+			ctx.drawImage(media.character, player.x - player.width / 2,
+				canvas.height - (player.y - player.height / 2), player.width, player.height);
 		}
 
 		var interval = setInterval(game, 1000 / 60);

@@ -1,56 +1,41 @@
-/*var Media = function() {
-	var listeners = [],
-		loaders = [];
-
-	return {
-		ready: function(callback) {
-			listeners.push(callback);
-		},
-		load: function(loader) {
-			loaders.push();
-			return this;
-		},
-		start: function() {
-
-		}
-	};
-}();*/
-
-var Media = function() {
+(function() {
 	var cache = {},
 		dir = 'res/';
 
-	var get = function(src) {
-		for(var key in cache) {
-			if(src === key) {
-				return cache[key]
+	var get = function(req) {
+		for(var src in cache) {
+			if(src === req.src) {
+				for(var type in cache[req])
+					if(type === req.type)
+						return cache[src][type];
 			}
 		}
 	};
 
 	var respond = function(request) {
 		var loaded = {},
-		listeners = [], ready = false;
+			listeners = [],
+			ready = false;
 		
 		var check = function() {
 			if(Object.keys(loaded).length == Object.keys(request).length) {
 				ready = true;
 				while(listeners.length > 0) {
-					listeners.shift()(loaded);
+					listeners.pop()(loaded);
 				}
 			}
 		}
 
 		var ondone = function(req) {
 			var media = req.get();
-			cache[req.src] = media;
+			cache[req.src] = {type: req.type, media: media};
 			loaded[req.name] = media;
 			check();
 		}
 
 		for(var name in request) {
 			var req = request[name],
-				cached = get(req.src);
+				cached = get(req);
 			req.name = name;
 			if(cached) {
 				loaded[name] = cached;
@@ -78,6 +63,7 @@ var Media = function() {
 			image.src = dir + src;
 			return {
 				src: src,
+				type: 'image',
 				done: function(callback) {
 					var self = this;
 					if(image.complete) {
@@ -95,8 +81,8 @@ var Media = function() {
 			}
 		}
 	};
-	return Media;
-}();
+	window.Media = Media;
+})();
 /*
 Media.request({
 	icon: Media.loaders.image('icon.png'),
