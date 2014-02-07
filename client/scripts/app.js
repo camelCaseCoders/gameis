@@ -30,7 +30,7 @@ var request = Media.request({
 $(document).ready(function() {
 	var canvas = document.getElementById('game-canvas'),
 		ctx = canvas.getContext('2d');
-	
+
 	request.ready(function(media) {
 		var player = {
 			x: 100,
@@ -39,6 +39,7 @@ $(document).ready(function() {
 			height: 50,
 			roation: 0,
 			speed: 2,
+			runSpeed: 4,
 			currentSprite: media.player.sprites[0][0]
 		}
 		var ticks = 0;
@@ -47,16 +48,21 @@ $(document).ready(function() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 			//DO SHIT
-			var xd = 0, yd = 0;
-		
+
+			//PLAYER MOVEMENT
+			var xd = 0, yd = 0, speed = player.speed;
+			if(Input.keydown(Input.keys['shift']))
+				speed = player.runSpeed;
 			if(Input.keydown(Input.keys['right-arrow']))
-				xd = player.speed;
+				xd += speed;
 			if(Input.keydown(Input.keys['left-arrow']))
-				xd = -player.speed;
+				xd -= speed;
 			if(Input.keydown(Input.keys['up-arrow']))
-				yd = player.speed;
+				yd += speed;
 			if(Input.keydown(Input.keys['down-arrow']))
-				yd = -player.speed;
+				yd -= speed;
+
+			//SET ROTATION AND CHANGE SPRITE
 			var moving = xd || yd;
 			if(moving) {
 				++ticks;
@@ -64,27 +70,33 @@ $(document).ready(function() {
 				player.currentSprite = media.player.sprites[0][Math.floor((ticks / 5) % 16)];
 			}
 
+			//MOVE
 			player.x += xd;
 			player.y += yd;
+
+			//CHECKING IF PLAYER IS OUT OF BOUNDS
 			if(player.x > canvas.width + player.width / 2 && xd > 0)
-				player.x = -player.width;
+				player.x = -player.width / 2;
 			if(player.x < -player.width / 2 && xd < 0)
 				player.x = canvas.width + player.width / 2;
 			if(player.y > canvas.height + player.height / 2 && yd > 0)
-				player.y = -player.height;
+				player.y = -player.height / 2;
 			if(player.y < -player.width / 2 && yd < 0)
 				player.y = canvas.height + player.height / 2;
-			console.log(player.x);
 
 			//REDRAW
-			ctx.save(); 
+
+			//ROTATE AND DRAW SPRITE
+			ctx.save();
 			ctx.translate(player.x, canvas.height - player.y);
 			ctx.rotate(player.roation);
 			player.currentSprite.draw(ctx, -player.width / 2, -player.height / 2);
 			ctx.restore();
 
-			if(Math.random() > 0.95)
-				media.shell.play();
+			//RANDOM SOUND FOR TESTING (MATH.RANDOM() RETURNS A NUMBER BETWEEN 0 AND 1)
+			//SO BASICALLY ABOUT 0.0001% CHANCE
+			if(Math.random() > 0.9995)
+				media.halloween.play();
 
 			//rect(ctx, -this.pos.w / 2, -this.pos.h / 2, render.w, render.h, alphaColor(255, 0, 0, .3));
 			//ctx.fillRect(player.x - player.width / 2, canvas.height - (player.y - player.height / 2), player.width, player.height);

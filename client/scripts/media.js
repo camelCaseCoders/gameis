@@ -98,7 +98,7 @@
 			}
 		},
 		spriteSheet: function(src, sw, sh) {
-			var imageLoader = Media.loaders.image(src);
+			var response = Media.request({image: Media.loaders.image(src)});
 			var sheet = {};
 
 			var Sprite = function(image, x, y, w ,h) {
@@ -111,8 +111,8 @@
 				type: 'spritesheet',
 				done: function(callback) {
 					var self = this;
-					imageLoader.done(function(loader) {
-						image = loader.get();
+					response.ready(function(media) {
+						image = media.image;
 						var sprites = sheet.sprites = [];
 						// y and x order inverted. Feels better considering how the spritesheets are drawn
 						for(var y = 0; y < image.height / sh; y++) {
