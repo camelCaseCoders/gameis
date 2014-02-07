@@ -30,12 +30,14 @@ var Media = function() {
 
 	var respond = function(request) {
 		var loaded = {},
-		onready, ready = false;
+		listeners = [], ready = false;
 		
 		var check = function() {
 			if(Object.keys(loaded).length == Object.keys(request).length) {
 				ready = true;
-				if(onready) onready(loaded);
+				while(listeners.length > 0) {
+					listeners.shift()(loaded);
+				}
 			}
 		}
 
@@ -61,7 +63,7 @@ var Media = function() {
 		return {
 			ready: function(callback) {
 				if(ready) callback(loaded);
-				else onready = callback;
+				else listeners.push(callback);
 			}
 		}
 	}
