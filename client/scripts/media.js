@@ -1,13 +1,13 @@
 (function() {
-	var cache = {},
-		dir = 'res/';
+	var cache = window.cache = {};
 
 	var get = function(req) {
 		for(var src in cache) {
 			if(src === req.src) {
-				for(var type in cache[req])
-					if(type === req.type)
+				for(var type in cache[req]) {
+					if(type === req.type) 
 						return cache[src][type];
+				}
 			}
 		}
 	};
@@ -28,7 +28,11 @@
 
 		var ondone = function(req) {
 			var media = req.get();
-			cache[req.src] = {type: req.type, media: media};
+
+			var cached = {type: req.type, media: media};
+			if(cache[req.src]) cache[req.src].push(cached);
+			else cache[req.src] = [cached];
+
 			loaded[req.name] = media;
 			check();
 		}
@@ -54,13 +58,14 @@
 	}
 
 	var Media = {};
+	Media.dir = 'res/';
 	Media.request = function(request) {
 		return respond(request);
 	};
 	Media.loaders = {
 		image: function(src) {
 			var image = new Image();
-			image.src = dir + src;
+			image.src = src;
 			return {
 				src: src,
 				type: 'image',
@@ -82,7 +87,7 @@
 		},
 		audio: function(src) {
 			var audio = new Audio();
-			audio.src = dir + src;
+			audio.src = src;
 			return {
 				src: src,
 				type: 'audio',

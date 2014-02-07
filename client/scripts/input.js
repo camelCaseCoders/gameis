@@ -1,5 +1,5 @@
 var Input = function() {
-	var keys = {};
+	var keys = window.keys = {};
 	$(window).keydown(function(e) {
 		//temporary solution
 		if(e.keyCode == 38 || e.keyCode == 40)

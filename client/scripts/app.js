@@ -21,11 +21,11 @@ angular.module('app', ['ngRoute'])
 	});
 });
 var request = Media.request({
-	character: Media.loaders.image('character.png'),
-	smallCharacter: Media.loaders.image('favicon.ico'),
-	halloween: Media.loaders.audio('halloween.mp3'),
-	shell: Media.loaders.audio('shell.mp3'),
-	player: Media.loaders.spriteSheet('player.png', 50, 50)
+	character: Media.loaders.image(Media.dir + 'character.png'),
+	smallCharacter: Media.loaders.image(Media.dir + 'favicon.ico'),
+	//halloween: Media.loaders.audio(Media.dir + 'halloween.mp3'),
+	//shell: Media.loaders.audio(Media.dir + 'shell.mp3'),
+	player: Media.loaders.spriteSheet(Media.dir + 'player.png', 50, 50)
 });
 $(document).ready(function() {
 	var canvas = document.getElementById('game-canvas'),
@@ -92,11 +92,6 @@ $(document).ready(function() {
 			ctx.rotate(player.roation);
 			player.currentSprite.draw(ctx, -player.width / 2, -player.height / 2);
 			ctx.restore();
-
-			//RANDOM SOUND FOR TESTING (MATH.RANDOM() RETURNS A NUMBER BETWEEN 0 AND 1)
-			//SO BASICALLY ABOUT 0.0001% CHANCE
-			if(Math.random() > 0.9995)
-				media.halloween.play();
 
 			//rect(ctx, -this.pos.w / 2, -this.pos.h / 2, render.w, render.h, alphaColor(255, 0, 0, .3));
 			//ctx.fillRect(player.x - player.width / 2, canvas.height - (player.y - player.height / 2), player.width, player.height);
