@@ -121,6 +121,7 @@
 								sprites[y][x] = new Sprite(image, x * sw, y * sh, sw, sh);;
 							}
 						}
+						callback(self);
 					});
 				},
 				get: function() {
