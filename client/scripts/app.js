@@ -23,8 +23,8 @@ angular.module('app', ['ngRoute'])
 var request = Media.request({
 	character: Media.loaders.image(Media.dir + 'character.png'),
 	smallCharacter: Media.loaders.image(Media.dir + 'favicon.ico'),
-	//halloween: Media.loaders.audio(Media.dir + 'halloween.mp3'),
-	//shell: Media.loaders.audio(Media.dir + 'shell.mp3'),
+	shell: Media.loaders.audio(Media.dir + 'shell.mp3'),
+	fire: Media.loaders.audio(Media.dir + 'fire.mp3'),
 	player: Media.loaders.spriteSheet(Media.dir + 'player.png', 50, 50)
 });
 $(document).ready(function() {
@@ -51,16 +51,20 @@ $(document).ready(function() {
 
 			//PLAYER MOVEMENT
 			var xd = 0, yd = 0, speed = player.speed;
-			if(Input.keydown(Input.keys['shift']))
+			if(controls.down('run'))
 				speed = player.runSpeed;
-			if(Input.keydown(Input.keys['right-arrow']))
+			if(controls.down('walk-right'))
 				xd += speed;
-			if(Input.keydown(Input.keys['left-arrow']))
+			if(controls.down('walk-left'))
 				xd -= speed;
-			if(Input.keydown(Input.keys['up-arrow']))
+			if(controls.down('walk-up'))
 				yd += speed;
-			if(Input.keydown(Input.keys['down-arrow']))
+			if(controls.down('walk-down'))
 				yd -= speed;
+			if(controls.down('fire')) {
+				media.fire.currentTime = 0;
+				media.fire.play();
+			}
 
 			//SET ROTATION AND CHANGE SPRITE
 			var moving = xd || yd;
@@ -72,23 +76,23 @@ $(document).ready(function() {
 
 			//MOVE
 			player.x += xd;
-			player.y += yd;
+			player.y -= yd;
 
 			//CHECKING IF PLAYER IS OUT OF BOUNDS
 			if(player.x > canvas.width + player.width / 2 && xd > 0)
 				player.x = -player.width / 2;
 			if(player.x < -player.width / 2 && xd < 0)
 				player.x = canvas.width + player.width / 2;
-			if(player.y > canvas.height + player.height / 2 && yd > 0)
+			if(player.y > canvas.height + player.height / 2 && yd < 0)
 				player.y = -player.height / 2;
-			if(player.y < -player.width / 2 && yd < 0)
+			if(player.y < -player.width / 2 && yd > 0)
 				player.y = canvas.height + player.height / 2;
 
 			//REDRAW
 
 			//ROTATE AND DRAW SPRITE
 			ctx.save();
-			ctx.translate(player.x, canvas.height - player.y);
+			ctx.translate(player.x, player.y);
 			ctx.rotate(player.roation);
 			player.currentSprite.draw(ctx, -player.width / 2, -player.height / 2);
 			ctx.restore();
