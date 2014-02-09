@@ -5,3 +5,10 @@
 		});
 	}
 })({});
+
+/*API 
+
+var anim = new Animation(Spritesheet, timeBetween);
+anim.draw(ctx, dx, dy);
+
+*/

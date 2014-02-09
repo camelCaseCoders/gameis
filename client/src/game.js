@@ -9,8 +9,9 @@ $(document).ready(function() {
 	var canvas = document.getElementById('game-canvas'),
 		ctx = canvas.getContext('2d');
 
+	var $fps = $('#fps');
+
 	request.ready(function(media) {
-		window.media = media;
 		var player = {
 			x: 100,
 			y: 100,
@@ -22,12 +23,16 @@ $(document).ready(function() {
 			animspeed: 4,
 			currentSprite: 0
 		}
-		var ticks = 0;
-		function game() {
+		var ticks = 0, lastTime = 0;
+		function game(time) {
 			//CLEAR
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 			//DO SHIT
+
+			//CALCULATE DELTA
+			var delta = time - lastTime;
+			$fps.text(Math.round(1000 / delta));
 
 			//PLAYER MOVEMENT
 			var xd = 0, yd = 0, speed = player.speed, animspeed = player.animspeed;
@@ -80,13 +85,12 @@ $(document).ready(function() {
 			media.player.drawSprite(ctx, 0, player.currentSprite, -player.width / 2, -player.height / 2);
 			ctx.restore();
 
-			//rect(ctx, -this.pos.w / 2, -this.pos.h / 2, render.w, render.h, alphaColor(255, 0, 0, .3));
-			//ctx.fillRect(player.x - player.width / 2, canvas.height - (player.y - player.height / 2), player.width, player.height);
-			//ctx.drawImage(media.character, player.x - player.width / 2,
-			//canvas.height - (player.y - player.height / 2), player.width, player.height);
+			//REQUEST NEXT UPDATE
+			lastTime = time;
+			window.requestAnimationFrame(game);
 		}
 
-		var interval = setInterval(game, 1000 / 60);
+		window.requestAnimationFrame(game);
 	});
 	
 });
