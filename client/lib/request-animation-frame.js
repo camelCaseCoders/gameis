@@ -1,0 +1,1 @@
+window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || alert('No animationframe!');

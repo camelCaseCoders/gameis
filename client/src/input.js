@@ -17,12 +17,12 @@
 		};
 		$window.keydown(function(e) {
 			//temporary solution
-			if(e.keyCode == 38 || e.keyCode == 40)
+			if(e.which == 38 || e.which == 40)
 				e.preventDefault();
-			keys[e.keyCode] = true;
+			keys[e.which] = true;
 		})
 		.keyup(function(e) {
-			keys[e.keyCode] = false;
+			keys[e.which] = false;
 		})
 
 		return {

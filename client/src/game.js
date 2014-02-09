@@ -1,8 +1,8 @@
 var request = Media.request({
 	character: Media.loaders.image(Media.dir + 'character.png'),
 	smallCharacter: Media.loaders.image(Media.dir + 'favicon.ico'),
-	shell: Media.loaders.audio(Media.dir + 'shell.mp3'),
-	fire: Media.loaders.audio(Media.dir + 'fire.mp3', 0.2),
+	//shell: Media.loaders.audio(Media.dir + 'shell.mp3'),
+	//fire: Media.loaders.audio(Media.dir + 'fire.mp3', 0.2),
 	player: Media.loaders.spriteSheet(Media.dir + 'player.png', 50, 50)
 });
 $(document).ready(function() {
