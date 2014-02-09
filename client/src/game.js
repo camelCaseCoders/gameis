@@ -2,7 +2,7 @@ var request = Media.request({
 	character: Media.loaders.image(Media.dir + 'character.png'),
 	smallCharacter: Media.loaders.image(Media.dir + 'favicon.ico'),
 	shell: Media.loaders.audio(Media.dir + 'shell.mp3'),
-	fire: Media.loaders.audio(Media.dir + 'fire.mp3'),
+	fire: Media.loaders.audio(Media.dir + 'fire.mp3', 0.2),
 	player: Media.loaders.spriteSheet(Media.dir + 'player.png', 50, 50)
 });
 $(document).ready(function() {
@@ -10,6 +10,7 @@ $(document).ready(function() {
 		ctx = canvas.getContext('2d');
 
 	request.ready(function(media) {
+		window.media = media;
 		var player = {
 			x: 100,
 			y: 100,
@@ -19,7 +20,7 @@ $(document).ready(function() {
 			speed: 2,
 			runModif: 2,
 			animspeed: 4,
-			currentSprite: media.player.sprites[0][0]
+			currentSprite: 0
 		}
 		var ticks = 0;
 		function game() {
@@ -43,6 +44,7 @@ $(document).ready(function() {
 			if(controls.down('walk-down'))
 				yd -= speed;
 			if(controls.down('fire')) {
+				media.fire.pause();
 				media.fire.currentTime = 0;
 				media.fire.play();
 			}
@@ -52,7 +54,7 @@ $(document).ready(function() {
 			if(moving) {
 				++ticks;
 				player.roation = Math.atan2(xd, yd);
-				player.currentSprite = media.player.sprites[0][Math.floor((ticks / animspeed) % 16)];
+				player.currentSprite = Math.floor((ticks / animspeed) % 16);
 			}
 
 			//MOVE
@@ -75,7 +77,7 @@ $(document).ready(function() {
 			ctx.save();
 			ctx.translate(player.x, player.y);
 			ctx.rotate(player.roation);
-			player.currentSprite.draw(ctx, -player.width / 2, -player.height / 2);
+			media.player.drawSprite(ctx, 0, player.currentSprite, -player.width / 2, -player.height / 2);
 			ctx.restore();
 
 			//rect(ctx, -this.pos.w / 2, -this.pos.h / 2, render.w, render.h, alphaColor(255, 0, 0, .3));

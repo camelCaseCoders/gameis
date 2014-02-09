@@ -85,9 +85,10 @@
 				}
 			}
 		},
-		audio: function(src) {
+		audio: function(src, vol) {
 			var audio = new Audio();
 			audio.src = src;
+			audio.volume = vol || 1;
 			return {
 				src: src,
 				type: 'audio',
@@ -103,14 +104,7 @@
 			}
 		},
 		spriteSheet: function(src, sw, sh) {
-			var request = Media.request({image: Media.loaders.image(src)});
-			var sheet = {};
-
-			var Sprite = function(image, x, y, w ,h) {
-				this.draw = function(ctx, dx, dy) {
-					ctx.drawImage(image, x, y, w, h, dx, dy, w, h);
-				}
-			}
+			var request = Media.request({image: Media.loaders.image(src)}), sheet;
 			return {
 				src: src,
 				type: 'spritesheet',
@@ -118,14 +112,7 @@
 					var self = this;
 					request.ready(function(media) {
 						image = media.image;
-						var sprites = sheet.sprites = [];
-						// y and x order inverted. Feels better considering how the spritesheets are drawn
-						for(var y = 0; y < image.height / sh; y++) {
-							sprites[y] = [];
-							for(var x = 0; x < image.width / sw; x++) {
-								sprites[y][x] = new Sprite(image, x * sw, y * sh, sw, sh);;
-							}
-						}
+						sheet = new Spritesheet(image, sw, sh);
 						callback(self);
 					});
 				},
