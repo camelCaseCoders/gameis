@@ -9,12 +9,11 @@
 	}
 	Animation.prototype = {
 		pause: function() {
-			var _ = this._(key);
-			_.lastTime = 0;
+			this._(key).lastTime = undefined;
 		},
 		update: function(time) {
 			var _ = this._(key);
-			_.spareTime += time - (_.lastTime || 0);
+			if(_.lastTime) _.spareTime += time - _.lastTime;
 			var steps = Math.floor(_.spareTime / _.speed)
 			if(steps > 0) {
 				_.spareTime -= steps * _.speed;

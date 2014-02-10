@@ -35,7 +35,6 @@ $(document).ready(function() {
 
 			//PLAYER MOVEMENT
 			var xd = 0, yd = 0, speed = player.speed;
-			//, animspeed = player.animspeed;
 			if(controls.down('run')) {
 				speed *= player.runModif;
 				player.animation.setSpeed(50);
@@ -65,7 +64,6 @@ $(document).ready(function() {
 				++ticks;
 				player.roation = Math.atan2(xd, yd);
 				player.animation.update(time);
-				//player.currentSprite = Math.floor((ticks / animspeed) % 16);
 			} else {
 				player.animation.pause();
 			}
@@ -90,7 +88,6 @@ $(document).ready(function() {
 			ctx.save();
 			ctx.translate(player.x, player.y);
 			ctx.rotate(player.roation);
-			//media.player.drawSprite(ctx, 0, player.currentSprite, -player.width / 2, -player.height / 2);
 			player.animation.render(ctx, 0, -player.width / 2, -player.height / 2);
 			ctx.restore();
 

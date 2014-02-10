@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute'])
+angular.module('app', ['ngRoute', 'blink'])
 .config(function($routeProvider) {
 	$routeProvider
 	.when('/', {
