@@ -20,12 +20,15 @@
 			}
 		}
 
+		//Since all of them have the same length
+		this.length = image.width / sw;
+		this.height = image.height / sh;
 	};
 	Spritesheet.prototype = {
 		drawSprite: function(ctx, y, x, dx, dy) {
 			var _ = this._(key);
 			_.sprites[y][x].draw(ctx, _.image, dx, dy);
-		}
+		},
 		/*,
 		drawNext: function(ctx, y, dx, dy) {
 			var _ = this._(key);

@@ -1,14 +1,42 @@
-(function(key) {
-	var Animation = window.Animation = function() {
+(function(key, undefined) {
+	var Animation = window.Animation = function(sheet, speed) {
 		this._ = window.underscore(key, {
-			
+			sheet: sheet,
+			speed: speed,
+			currentSprite: 0,
+			spareTime: 0
 		});
+	}
+	Animation.prototype = {
+		pause: function() {
+			var _ = this._(key);
+			_.lastTime = 0;
+		},
+		update: function(time) {
+			var _ = this._(key);
+			_.spareTime += time - (_.lastTime || 0);
+			var steps = Math.floor(_.spareTime / _.speed)
+			if(steps > 0) {
+				_.spareTime -= steps * _.speed;
+				_.currentSprite = (_.currentSprite + steps) % _.sheet.length;
+			}
+			_.lastTime = time;
+			return this;
+		},
+		render: function(ctx, sy, dx, dy) {
+			var _ = this._(key);
+			_.sheet.drawSprite(ctx, sy, _.currentSprite, dx, dy);
+		},
+		setSpeed: function(speed) {
+			this._(key).speed = speed;
+		}
 	}
 })({});
 
 /*API 
 
-var anim = new Animation(Spritesheet, timeBetween);
-anim.draw(ctx, dx, dy);
+var anim = new Animation(Spritesheet, speed;
+anim.update(time);
+anim.render(ctx, sy, dx, dy);
 
 */

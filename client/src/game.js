@@ -20,8 +20,7 @@ $(document).ready(function() {
 			roation: 0,
 			speed: 2,
 			runModif: 2,
-			animspeed: 4,
-			currentSprite: 0
+			animation: new Animation(media.player, 100)
 		}
 		var ticks = 0, lastTime = 0;
 		function game(time) {
@@ -35,10 +34,14 @@ $(document).ready(function() {
 			$fps.text(Math.round(1000 / delta));
 
 			//PLAYER MOVEMENT
-			var xd = 0, yd = 0, speed = player.speed, animspeed = player.animspeed;
+			var xd = 0, yd = 0, speed = player.speed;
+			//, animspeed = player.animspeed;
 			if(controls.down('run')) {
 				speed *= player.runModif;
-				animspeed /= player.runModif;
+				player.animation.setSpeed(50);
+				//animspeed /= player.runModif;
+			} else {
+				player.animation.setSpeed(80);
 			}
 			if(controls.down('walk-right'))
 				xd += speed;
@@ -49,9 +52,11 @@ $(document).ready(function() {
 			if(controls.down('walk-down'))
 				yd -= speed;
 			if(controls.down('fire')) {
+				/*
 				media.fire.pause();
 				media.fire.currentTime = 0;
 				media.fire.play();
+				*/
 			}
 
 			//SET ROTATION AND CHANGE SPRITE
@@ -59,7 +64,10 @@ $(document).ready(function() {
 			if(moving) {
 				++ticks;
 				player.roation = Math.atan2(xd, yd);
-				player.currentSprite = Math.floor((ticks / animspeed) % 16);
+				player.animation.update(time);
+				//player.currentSprite = Math.floor((ticks / animspeed) % 16);
+			} else {
+				player.animation.pause();
 			}
 
 			//MOVE
@@ -82,7 +90,8 @@ $(document).ready(function() {
 			ctx.save();
 			ctx.translate(player.x, player.y);
 			ctx.rotate(player.roation);
-			media.player.drawSprite(ctx, 0, player.currentSprite, -player.width / 2, -player.height / 2);
+			//media.player.drawSprite(ctx, 0, player.currentSprite, -player.width / 2, -player.height / 2);
+			player.animation.render(ctx, 0, -player.width / 2, -player.height / 2);
 			ctx.restore();
 
 			//REQUEST NEXT UPDATE
