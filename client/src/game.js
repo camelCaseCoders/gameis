@@ -18,11 +18,11 @@ $(document).ready(function() {
 			width: 50,
 			height: 50,
 			roation: 0,
-			speed: 2,
-			runModif: 2,
+			speed: 15,
+			runModif: 1.5,
 			animation: new Animation(media.player, 100)
 		}
-		var ticks = 0, lastTime = 0;
+		var lastTime = 0;
 		function game(time) {
 			//CLEAR
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -32,9 +32,10 @@ $(document).ready(function() {
 			//CALCULATE DELTA
 			var delta = time - lastTime;
 			$fps.text(Math.round(1000 / delta));
+			delta /= 100;
 
 			//PLAYER MOVEMENT
-			var xd = 0, yd = 0, speed = player.speed;
+			var xd = 0, yd = 0, speed = player.speed * delta;
 			if(controls.down('run')) {
 				speed *= player.runModif;
 				player.animation.setSpeed(50);
@@ -61,7 +62,6 @@ $(document).ready(function() {
 			//SET ROTATION AND CHANGE SPRITE
 			var moving = xd || yd;
 			if(moving) {
-				++ticks;
 				player.roation = Math.atan2(xd, yd);
 				player.animation.update(time);
 			} else {
