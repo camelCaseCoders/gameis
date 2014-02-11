@@ -1,15 +1,20 @@
-window.controls = function() {
+angular.module('controls', ['input'])
+.factory('controls', function(keyboard, mouse) {
 	//keyboard key
 	var key = function(key) {
-		return function() {
-			return window.keyboard.down(key);
-		}
+		return {
+			down: function() {
+				return keyboard.down(key);
+			}
+		};
 	}
 	//mousebutton
 	var button = function(button) {
-		return function() {
-			return window.mouse.down(button);
-		}
+		return {
+			down: function() {
+				return mouse.down(button);
+			}
+		};
 	}
 	var controls = {
 		'walk-up': [
@@ -38,13 +43,13 @@ window.controls = function() {
 			if(control) {
 				if(angular.isArray(control)) {
 					for(var i in control) {
-						if(control[i]()) return true;
+						if(control[i].down()) return true;
 					}
-				} else return control();
+				} else return control.down();
 			}
 		},
 		set: function() {
 			//to be implemented
 		}
 	};
-}();
+})

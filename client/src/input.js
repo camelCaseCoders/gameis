@@ -1,6 +1,5 @@
 (function($window) {
-
-	var keyboard = window.keyboard = function() {
+	var keyboard = function() {
 		var keys = {},
 			names = {
 				'a': 65,
@@ -35,7 +34,7 @@
 		}
 	}();
 
-	var mouse = window.mouse = function() {
+	var mouse = function() {
 		var pos = {}, buttons = {},
 			names = {
 				'left': 1,
@@ -68,6 +67,14 @@
 	$window.blur(function() {
 		keyboard.reset();
 		mouse.reset();
+	});
+
+	angular.module('input', [])
+	.factory('keyboard', function() {
+		return keyboard;
+	})
+	.factory('mouse', function() {
+		return mouse;
 	});
 
 })($(window))

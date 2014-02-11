@@ -1,5 +1,5 @@
 (function(key, undefined) {
-	var Animation = window.Animation = function(sheet, speed) {
+	var Animation = function(sheet, speed) {
 		this._ = window.underscore(key, {
 			sheet: sheet,
 			speed: speed,
@@ -30,6 +30,10 @@
 			this._(key).speed = speed;
 		}
 	}
+	angular.module('animation', [])
+	.service('Animation', function() {
+		return Animation;
+	});
 })({});
 
 /*API 

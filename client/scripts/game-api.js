@@ -5,26 +5,51 @@ angular.module('game-api', [])
 		replace: true,
 		transclude: true,
 		template: '<div ng-transclude></div>',
+		scope: {},
 		controller: ['$scope',
 			function(scope) {
-				this.addCanvas = scope.addCanvas;
-				this.test = function() {
-					alert('test');
-				};
+				var that = this;
+				scope.ready = function(api) {
+					api.call(that);
+				}
+				var game, running, lastTime = 0;
+				var update = function(time) {
+					var delta = (time - lastTime) / 100;
+					var fps = Math.round(10 / delta);
+					game(time, delta, fps);
+					lastTime = time;
+
+					if(running)	window.requestAnimationFrame(update);
+				}
+				this.start = function(fn) {
+					game = fn;
+					running = true;
+					window.requestAnimationFrame(update);
+				}
+				this.pause = function() {
+					running = false;
+				}
 			}
 		],
 		link: function(scope, element, attrs) {
 			var canvases = [];
-			scope.addCanvas = function() {
-				var canvas = $(document.createElement('canvas'))
-				.width(element.width())
-				.height(element.height())
-				.css('position', 'absolute')
-				.css('z-index', canvases.length);
+			var api = function() {
+				this.canvases = canvases;
+				this.addCanvas = function() {
+					var canvas = document.createElement('canvas');
+					canvas.width = element.width();
+					canvas.height = element.height();
+					var $canvas = $(canvas)
+						.css('position', 'absolute')
+						.css('z-index', canvases.length);
 
-				element.append(canvas);
-				canvases.push(canvas);
-			}
+					element.append($canvas);
+					var obj = {$element: $canvas, element: canvas, ctx: canvas.getContext('2d')};
+					canvases.push(obj);
+					return obj;
+				}
+			}			
+			scope.ready(api);
 		}
 	}
 });

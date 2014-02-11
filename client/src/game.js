@@ -1,3 +1,4 @@
+/*
 var request = Media.request({
 	character: Media.loaders.image(Media.dir + 'character.png'),
 	smallCharacter: Media.loaders.image(Media.dir + 'favicon.ico'),
@@ -52,11 +53,9 @@ $(document).ready(function() {
 			if(controls.down('walk-down'))
 				yd -= speed;
 			if(controls.down('fire')) {
-				/*
 				media.fire.pause();
 				media.fire.currentTime = 0;
 				media.fire.play();
-				*/
 			}
 
 			//SET ROTATION AND CHANGE SPRITE
@@ -100,3 +99,4 @@ $(document).ready(function() {
 	});
 	
 });
+*/

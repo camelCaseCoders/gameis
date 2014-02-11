@@ -1,4 +1,14 @@
-angular.module('app', ['ngRoute', 'game-api', 'example-game', 'blink'])
+angular.module('app', [
+	'input',
+	'controls',
+	'spritesheet',
+	'animation',
+	'media',
+	'game-api',
+	'example-game',
+	'ngRoute',
+	'blink'
+])
 .config(function($routeProvider) {
 	$routeProvider
 	.when('/', {
