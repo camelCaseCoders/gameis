@@ -9,16 +9,18 @@ angular.module('game-api', [])
 		controller: ['$scope',
 			function(scope) {
 				var that = this;
-				scope.ready = function(api) {
-					api.call(that);
+				scope.ready = function(public) {
+					public.call(that);
 				}
 				var game, running, lastTime = 0;
 				var update = function(time) {
 					var delta = (time - lastTime) / 100;
 					var fps = Math.round(10 / delta);
-					game(time, delta, fps);
-					lastTime = time;
+					scope.showFps(fps);
+					
+					game(time, delta);
 
+					lastTime = time;
 					if(running)	window.requestAnimationFrame(update);
 				}
 				this.start = function(fn) {
@@ -32,8 +34,14 @@ angular.module('game-api', [])
 			}
 		],
 		link: function(scope, element, attrs) {
+			var $fps = $(document.createElement('div'))
+				.css('position', 'absolute')
+				.css('z-index', 10000)
+				.css('color', '#f00');
+			element.append($fps)
+
 			var canvases = [];
-			var api = function() {
+			var public = function() {
 				this.canvases = canvases;
 				this.addCanvas = function() {
 					var canvas = document.createElement('canvas');
@@ -48,8 +56,11 @@ angular.module('game-api', [])
 					canvases.push(obj);
 					return obj;
 				}
-			}			
-			scope.ready(api);
+			}
+			scope.showFps = function(fps) {
+				$fps.text(fps);
+			}
+			scope.ready(public);
 		}
 	}
 });

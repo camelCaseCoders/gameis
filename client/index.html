@@ -14,22 +14,26 @@
 	<script type="text/javascript" src="lib/angular-route.js"></script>
 	<script type="text/javascript" src="lib/contains.js"></script>
 	<script type="text/javascript" src="lib/underscore.js"></script>
+	<script type="text/javascript" src="lib/extend.js"></script>
 	<script type="text/javascript" src="lib/request-animation-frame.js"></script>
-
+	<script type="text/javascript" src="lib/clock.js"></script>
 	<script type="text/javascript" src="lib/blink.js"></script>
+
 	<script type="text/javascript" src="scripts/game-api.js"></script>
 	<script type="text/javascript" src="scripts/app.js"></script>
 
-	<script type="text/javascript" src="lib/clock.js"></script>
-	<script type="text/javascript" src="src/spritesheet.js"></script>
-	<script type="text/javascript" src="src/animation.js"></script>
-	<script type="text/javascript" src="src/media.js"></script>
+	<script type="text/javascript" src="src/lib/spritesheet.js"></script>
+	<script type="text/javascript" src="src/lib/animation.js"></script>
+	<script type="text/javascript" src="src/lib/media.js"></script>
 
-	<script type="text/javascript" src="src/input.js"></script>
-	<script type="text/javascript" src="src/controls.js"></script>
+	<script type="text/javascript" src="src/lib/input.js"></script>
+	<script type="text/javascript" src="src/lib/controls.js"></script>
 
+	<script type="text/javascript" src="src/lib/position.js"></script>
+
+	<script type="text/javascript" src="src/player.js"></script>
+	<script type="text/javascript" src="src/entity.js"></script>
 	<script type="text/javascript" src="src/game.js"></script>
-	<script type="text/javascript" src="src/example-game.js"></script>
 
 </head>
 
@@ -49,11 +53,11 @@
 		</nav>
 
 		<div id="game-container">
-			<game-api example-game id="example-game"></game-api>
+			<game-api game id="example-game"></game-api>
 		</div>
 		<div id="fps"></div>
 
-		<footer><p><blink>This game is tha Game</blink></p></footer>
+		<footer><p><blink speed="1000">This game is tha Game</blink></p></footer>
 
 
 	</div>

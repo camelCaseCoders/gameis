@@ -1,12 +1,12 @@
 (function(key, undefined) {
-	var Animation = function(sheet, speed) {
+	var Animation = window.Animation = function(sheet, speed) {
 		this._ = window.underscore(key, {
 			sheet: sheet,
 			speed: speed,
 			currentSprite: 0,
 			spareTime: 0
 		});
-	}
+	};
 	Animation.prototype = {
 		pause: function() {
 			this._(key).lastTime = undefined;
@@ -29,11 +29,7 @@
 		setSpeed: function(speed) {
 			this._(key).speed = speed;
 		}
-	}
-	angular.module('animation', [])
-	.service('Animation', function() {
-		return Animation;
-	});
+	};
 })({});
 
 /*API 

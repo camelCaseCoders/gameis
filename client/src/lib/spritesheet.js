@@ -4,7 +4,7 @@
 			ctx.drawImage(image, x, y, w, h, dx, dy, w, h);
 		}
 	}
-	var Spritesheet = function(image, sw, sh) {
+	var Spritesheet = window.Spritesheet = function(image, sw, sh) {
 		var sprites = [];
 		this._ = window.underscore(key, {
 			sprites: sprites,
@@ -37,8 +37,4 @@
 			_.current = current + 1;
 		}*/
 	};
-	angular.module('spritesheet', [])
-	.service('Spritesheet', function() {
-		return Spritesheet;
-	});
 })({});

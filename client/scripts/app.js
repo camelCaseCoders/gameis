@@ -1,13 +1,7 @@
 angular.module('app', [
-	'input',
-	'controls',
-	'clock',
-	'spritesheet',
-	'animation',
-	'media',
-	'game-api',
-	'example-game',
 	'ngRoute',
+	'game-api',
+	'game',
 	'blink'
 ])
 .config(function($routeProvider) {

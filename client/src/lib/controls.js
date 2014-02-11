@@ -1,6 +1,4 @@
-angular.module('controls', ['input'])
-.factory('controls', function(keyboard, mouse) {
-	//keyboard key
+window.controls = function() {
 	var key = function(key) {
 		return {
 			down: function() {
@@ -52,4 +50,4 @@ angular.module('controls', ['input'])
 			//to be implemented
 		}
 	};
-})
+}();
