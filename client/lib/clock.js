@@ -1,4 +1,5 @@
-window.clock = function() {
+angular.module('clock', [])
+.service('clock', function() {
 	var stack = [];
 	return {
 		log: function() {
@@ -8,4 +9,4 @@ window.clock = function() {
 			return(Date.now() - stack.pop());
 		}
 	};
-}();
+});

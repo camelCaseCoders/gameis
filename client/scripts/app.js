@@ -1,6 +1,7 @@
 angular.module('app', [
 	'input',
 	'controls',
+	'clock',
 	'spritesheet',
 	'animation',
 	'media',
