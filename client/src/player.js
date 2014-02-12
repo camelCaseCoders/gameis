@@ -1,8 +1,9 @@
 (function(key) {
-	var Player = window.Player = function(media, level, x, y) {
+	var Player = window.Player = function(sprite, controls, level, x, y) {
 		Entity.call(this, level, x, y, 50, 50);
 		this._ = window.underscore(key, {
-			animation: new Animation(media.player, 80),
+			controls: new Controls(controls),
+			animation: new Animation(sprite, 80),
 			roation: 0,
 			speed: 15,
 			runModif: 1.5,
@@ -13,21 +14,21 @@
 		var _ = this._(key);
 
 		var xd = 0, yd = 0, speed = _.speed * delta;
-		if(controls.down('run')) {
+		if(_.controls.down('run')) {
 			speed *= _.runModif;
 			_.animation.setSpeed(50);
 		} else {
 			_.animation.setSpeed(80);
 		}
-		if(controls.down('walk-right'))
+		if(_.controls.down('walk-right'))
 			xd += speed;
-		if(controls.down('walk-left'))
+		if(_.controls.down('walk-left'))
 			xd -= speed;
-		if(controls.down('walk-up'))
+		if(_.controls.down('walk-up'))
 			yd += speed;
-		if(controls.down('walk-down'))
+		if(_.controls.down('walk-down'))
 			yd -= speed;
-		if(controls.down('fire')) {
+		if(_.controls.down('fire')) {
 		/*	media.fire.pause();
 			media.fire.currentTime = 0;
 			media.fire.play();*/
