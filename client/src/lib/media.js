@@ -111,8 +111,7 @@ window.media = function() {
 				done: function(callback) {
 					var self = this;
 					request.ready(function(media) {
-						image = media.image;
-						sheet = new Spritesheet(image, sw, sh);
+						sheet = new Spritesheet(media.image, sw, sh);
 						callback(self);
 					});
 				},
@@ -121,6 +120,23 @@ window.media = function() {
 				}
 			}
 
+		},
+		imageOverlay: function(src, color) {
+			var request = media.request({image: media.loaders.image(src)}), overlay;
+			return {
+				src: src,
+				type: 'overlay',
+				done: function(callback) {
+					var self = this;
+					request.ready(function(media) {
+						overlay = createOverlay(media.image, color);
+						callback(self);
+					});
+				},
+				get: function() {
+					return overlay;
+				}
+			}
 		}
 	};
 	return media;
