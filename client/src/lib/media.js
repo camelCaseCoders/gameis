@@ -1,4 +1,4 @@
-window.media = function() {
+window.Media = function() {
 	var cache = {};
 
 	var get = function(req) {
@@ -53,16 +53,17 @@ window.media = function() {
 			ready: function(callback) {
 				if(ready) callback(loaded);
 				else listeners.push(callback);
+				return this;
 			}
 		}
 	}
 
-	var media = {};
-	media.dir = 'res/';
-	media.request = function(request) {
+	var Media = {};
+	Media.dir = 'res/';
+	Media.request = function(request) {
 		return respond(request);
 	};
-	media.loaders = {
+	Media.loaders = {
 		image: function(src) {
 			var image = new Image();
 			image.src = src;
@@ -72,7 +73,7 @@ window.media = function() {
 				done: function(callback) {
 					var self = this;
 					if(image.complete) {
-						alert('image.complete in media.js');
+						alert('image.complete in Media.js');
 						callback(self);
 					} else {
 						image.onload = function() {
@@ -104,14 +105,14 @@ window.media = function() {
 			}
 		},
 		spriteSheet: function(src, sw, sh) {
-			var request = media.request({image: media.loaders.image(src)}), sheet;
+			var request = Media.request({image: Media.loaders.image(src)}), sheet;
 			return {
 				src: src,
 				type: 'spritesheet',
 				done: function(callback) {
 					var self = this;
-					request.ready(function(media) {
-						sheet = new Spritesheet(media.image, sw, sh);
+					request.ready(function(Media) {
+						sheet = new Spritesheet(Media.image, sw, sh);
 						callback(self);
 					});
 				},
@@ -122,14 +123,14 @@ window.media = function() {
 
 		},
 		imageOverlay: function(src, color) {
-			var request = media.request({image: media.loaders.image(src)}), overlay;
+			var request = Media.request({image: Media.loaders.image(src)}), overlay;
 			return {
 				src: src,
 				type: 'overlay',
 				done: function(callback) {
 					var self = this;
-					request.ready(function(media) {
-						overlay = createOverlay(media.image, color);
+					request.ready(function(Media) {
+						overlay = createOverlay(Media.image, color);
 						callback(self);
 					});
 				},
@@ -139,7 +140,7 @@ window.media = function() {
 			}
 		}
 	};
-	return media;
+	return Media;
 }();
 /*
 media.request({

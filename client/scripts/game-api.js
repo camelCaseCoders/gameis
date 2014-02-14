@@ -15,8 +15,7 @@ angular.module('game-api', [])
 				var game, running, lastTime = 0;
 				var update = function(time) {
 					var delta = (time - lastTime) / 100;
-					var fps = Math.round(10 / delta);
-					scope.showFps(fps);
+					scope.showFps(Math.round(10 / delta));
 					
 					game(time, delta);
 
@@ -28,7 +27,7 @@ angular.module('game-api', [])
 					running = true;
 					window.requestAnimationFrame(update);
 				}
-				this.pause = function() {
+				this.stop = function() {
 					running = false;
 				}
 			}
@@ -40,10 +39,10 @@ angular.module('game-api', [])
 				.css('color', '#f00');
 			element.append($fps)
 
-			var canvases = [];
+			var canvases = {};
 			var public = function() {
 				this.canvases = canvases;
-				this.addCanvas = function() {
+				this.addCanvas = function(name) {
 					var canvas = document.createElement('canvas');
 					canvas.width = element.width();
 					canvas.height = element.height();
@@ -53,9 +52,9 @@ angular.module('game-api', [])
 
 					element.append($canvas);
 					var obj = {$element: $canvas, element: canvas, ctx: canvas.getContext('2d')};
-					canvases.push(obj);
+					canvases[name] = obj;
 					return obj;
-				}
+				};
 			}
 			scope.showFps = function(fps) {
 				$fps.text(fps);
