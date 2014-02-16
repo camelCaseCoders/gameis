@@ -4,7 +4,7 @@
 		this._ = window.underscore(key, {
 			overlay: createOverlay(media.bullet, color + ',127'),
 			color: color,
-			speed: 50,
+			speed: 1000,
 			bulletSpeed: 2,
 			ready: true
 		});
@@ -20,7 +20,7 @@
 			var _ = this._(key);
 			if(_.ready) {
 				this.owner.level.addEntity(new Bullet(this.owner.level, this.owner.x, this.owner.y,
-					Math.sin(angle) * _.bulletSpeed, Math.cos(angle) * _.bulletSpeed, _.overlay));
+					Math.sin(angle) * _.bulletSpeed, Math.cos(angle) * _.bulletSpeed, this.owner, _.overlay));
 				_.lastTime = time;
 				_.ready = false;
 			}
