@@ -55,8 +55,8 @@ angular.module('game', [])
 				window.media = media;
 				var level = window.level = new Level(base.width, base.height, api.canvases);
 
-				level.addEntity(new Player(level, 25, 25, '255,0,0', controls[0]));
-				level.addEntity(new Player(level, 75, 25, '0,0,255', controls[1]));
+				level.addEntity(new Player(level, level.width / 4, level.height / 4, '0,0,255', controls[0]));
+				level.addEntity(new Player(level, level.width * 3/4, level.height * 3/4, '255,0,0', controls[1]));
 
 				api.start(function(time, delta) {
 					//UPDATE LEVEL
